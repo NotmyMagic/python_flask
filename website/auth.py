@@ -51,11 +51,11 @@ def sign_up():
         elif len(password1) < 7:
             flash("password must be 7 or more characters.", category="error")
         else:
-            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method="error"))
+            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method="scrypt"))
             db.session.add(new_user)
             db.session.commit()
             flash("Account created!", category="error")
-            login_user(user, remember=True)
+            login_user(new_user, remember=True)
             return redirect(url_for("views.home"))
 
 
